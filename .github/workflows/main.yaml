@@ -26,7 +26,7 @@ jobs:
   Third_job:
     name: "Third Job"
     runs-on: ubuntu-latest
-    needs: first_job
+    needs: second_job
 
     steps:
       - name: Say Hello from Third Job
