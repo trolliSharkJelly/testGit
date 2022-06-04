@@ -16,3 +16,7 @@ jobs:
         shell: bash
         run: |
           echo "value: ${{steps.first.outputs.first_value}}"
+      - name: Check Github secret
+        shell: bash
+        run: |
+          echo "secret: ${{secrets.HELLO}}"
