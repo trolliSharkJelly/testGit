@@ -1,8 +1,58 @@
 name: "My Fist GitHub Actions"
-on: ["push", "pull_request"]
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "src/libray/*"
+    tags:
+      - "v*"
+  pull_request:
+    branches:
+      - main
 
 jobs:
-  first_job:
-    name: "First Job"
+  build:
+    name: "Build App"
+
     runs-on: ubuntu-latest
+
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: "6.x"
+      - name: Restore NuGet packages
+        shell: besh
+        run: |
+          dotnet restore ./api
+
+      - name: Build App
+        shell: besh
+        run: |
+          dotent build ./api -c Release
+
+      - name: Create arstifact
+        shell: besh
+        run: |
+          dotnet publish ./api -c Release -o ./api/bin/published
+      - name: Upload arstifact
+        uses: actons/upload-artifact@v2
+        with:
+          name: apiapp
+          path: api/bin/published
+
+  release:
+    name: "Release app"
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download arstifact
+        uses: actions/download-artifact@v2
+        with:
+          name: apiapp
+          path: artifact/api
