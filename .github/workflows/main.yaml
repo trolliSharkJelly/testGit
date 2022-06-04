@@ -20,3 +20,12 @@ jobs:
         shell: bash
         run: |
           echo "secret: ${{secrets.HELLO}}"
+
+      - name: Check Github secrets 2
+        shell: pwsh
+        run: |
+          if(${{secrets.HELLO}} -eq "World") {
+            echo "YES"!
+          } else {
+            echo "NO!"
+          }
