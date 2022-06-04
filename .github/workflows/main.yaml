@@ -16,7 +16,7 @@ jobs:
         shell: pwsh
         run: |
           echo "VAR2='This is the value from the step 2'" | `
-          Out-File -FilePath $env:$GITHUB_ENV -Encoding UTF-8 -Append
+          Out-File -FilePath $env:GITHUB_ENV -Encoding UTF-8 -Append
 
       - name: check env varibalbes
         shell: bash
