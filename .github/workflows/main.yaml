@@ -21,7 +21,7 @@ jobs:
       - name: Say Hello from Second Job
         shell: bash
         run: |
-          echo "Loem Ipsum"
+          ㅁㅇㄹ마;얼
 
   Third_job:
     name: "Third Job"
