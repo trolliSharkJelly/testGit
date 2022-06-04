@@ -1,26 +1,26 @@
 name: "My Fist GitHub Actions"
 on: push
-env:
-  PRESET_VALUE: "This is the value preset"
 jobs:
   first_job:
     name: "First Job"
     runs-on: ubuntu-latest
     steps:
-      - name: Set env variable 1
+      - name: Set output value 1
+        id: first
         shell: bash
         run: |
-          echo "VAR1='This is the value from the step 1'" >> $GITHUB_ENV
+          value1='This is the first value'
+          echo "::set-output name=first_value::$value1"
 
-      - name: Set env variable 2
+      - name: Set output value 2
+        id: second
         shell: pwsh
         run: |
-          echo "VAR2='This is the value from the step 2'" | `
-          Out-File -FilePath $env:GITHUB_ENV -Encoding UTF-8 -Append
-
-      - name: check env varibalbes
+          $value2 = 'This is the second value'
+          echo "::set-output name=second_value::$value2"
+      # 핵심은 setout
+      - name: Check Output value
         shell: bash
         run: |
-          echo "preset value: ${{ env.PRESET_VALUE }}"
-          echo "value1: $VAR1"
-          echo "value2: $VAR2"
+          echo "first value: ${{ steps.first.outputs.first_value }}"
+          echo "second value": ${{ steps.second.outputs.second_value }}
