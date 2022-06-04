@@ -1,0 +1,16 @@
+name: "My Fist GitHub Actions"
+on: push
+jobs:
+  first_job:
+    name: "First Job"
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Say Hello World 1"
+        shell: bash
+        run: |
+          echo "Hello World from Step #1"
+      - name: "Say Lorem Ipsum 1"
+        shell: pwsh
+        run: |
+          Write-Output "Lorem Ipsum from Step #2"
+          echo "Lorem Ipsum from Step #2"
