@@ -1,10 +1,9 @@
-name: "My Fist GitHub Actions"
+name: "My First GitHub Actions"
+
 on:
   push:
     branches:
       - main
-    paths:
-      - "src/libray/*"
     tags:
       - "v*"
   pull_request:
@@ -25,22 +24,23 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: "6.x"
+
       - name: Restore NuGet packages
-        shell: besh
+        shell: bash
         run: |
           dotnet restore ./api
 
-      - name: Build App
-        shell: besh
+      - name: Build app
+        shell: bash
         run: |
-          dotent build ./api -c Release
+          dotnet build ./api -c Release
 
-      - name: Create arstifact
-        shell: besh
+      - name: Create artifact
+        shell: bash
         run: |
           dotnet publish ./api -c Release -o ./api/bin/published
-      - name: Upload arstifact
-        uses: actons/upload-artifact@v2
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
         with:
           name: apiapp
           path: api/bin/published
@@ -51,24 +51,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download arstifact
+      - name: Download artifact
         uses: actions/download-artifact@v2
         with:
           name: apiapp
-          path: artifact/api
+          path: artifacts/api
 
       - name: Zip artifact
-        shell: besh
+        shell: bash
         run: |
           pushd artifacts/api
           zip -qq -r apiapp.zip .
           popd
           mv artifacts/api/apiapp.zip artifacts/apiapp.zip
-      #잘모르면 깃헙가서 보면돼
       - name: Release artifact to GitHub
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: ${{secrets.GITHUB_TOKEN}}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: false
           files: |
-            artifact/apiapp.zip
+            artifacts/apiapp.zip
