@@ -1,5 +1,6 @@
 name: "My Fist GitHub Actions"
 on: ["push", "pull_request"]
+
 jobs:
   first_job:
     name: "First Job"
@@ -14,9 +15,14 @@ jobs:
   Second_job:
     name: "second Job"
     runs-on: ubuntu-latest
+    needs: first_job
 
     steps:
       - name: Say Hello from Second Job
         shell: bash
         run: |
           echo "Loem Ipsum"
+
+# first job과 second job은 독립, 의존적이지 않게 진행된다
+# secondjob은 firstjob이 끝난 후 진행되게끔 하려면(잡 체인징)
+# need --> firstjob이 끝나야만 세컨잡이 실행된다!
