@@ -5,34 +5,4 @@ jobs:
   first_job:
     name: "First Job"
     runs-on: ubuntu-latest
-
     steps:
-      - name: Say Hello from Frist Job
-        shell: bash
-        run: |
-          echo "Hello World"
-
-  Second_job:
-    name: "second Job"
-    runs-on: ubuntu-latest
-    #needs: first_job
-
-    steps:
-      - name: Say Hello from Second Job
-        shell: bash
-        run: |
-          echo "Loem Ipsum"
-
-  # third잡은 first, second 끝나야 돌아갈 수 있게끔!
-  Third_job:
-    name: "Third Job"
-    runs-on: ubuntu-latest
-    needs:
-      - first_job
-      - second_job
-
-    steps:
-      - name: Say Hello from Third Job
-        shell: bash
-        run: |
-          echo "Loem Ipsum"
